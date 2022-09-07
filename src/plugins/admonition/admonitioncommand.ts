@@ -1,7 +1,7 @@
-import Command from '@ckeditor/ckeditor5-core/src/command';
+import { Command } from '@ckeditor/ckeditor5-core';
 import Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
-import Element from '@ckeditor/ckeditor5-engine/src/model/element';
-import first from '@ckeditor/ckeditor5-utils/src/first';
+import { Element } from '@ckeditor/ckeditor5-engine';
+import { first } from '@ckeditor/ckeditor5-utils';
 import Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
 
 export class AdmonitionCommand extends Command {

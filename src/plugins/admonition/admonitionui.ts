@@ -1,9 +1,11 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import Collection from '@ckeditor/ckeditor5-utils/src/collection';
-import Model from '@ckeditor/ckeditor5-ui/src/model';
-import SplitButtonView from '@ckeditor/ckeditor5-ui/src/dropdown/button/splitbuttonview';
-import { addListToDropdown } from '@ckeditor/ckeditor5-ui/src/dropdown/utils';
-import { createDropdown } from '@ckeditor/ckeditor5-ui/src/dropdown/utils';
+import { Plugin } from '@ckeditor/ckeditor5-core';
+import { Collection } from '@ckeditor/ckeditor5-utils';
+import {
+  Model,
+  SplitButtonView,
+  addListToDropdown,
+  createDropdown,
+} from '@ckeditor/ckeditor5-ui';
 
 import admonitionIcon from './admonition.svg';
 import './admonition.css';

@@ -1,6 +1,6 @@
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import Enter from '@ckeditor/ckeditor5-enter/src/enter';
-import Delete from '@ckeditor/ckeditor5-typing/src/delete';
+import { Plugin } from '@ckeditor/ckeditor5-core';
+import { Enter } from '@ckeditor/ckeditor5-enter';
+import { Delete } from '@ckeditor/ckeditor5-typing';
 import { AdmonitionCommand } from './admonitioncommand';
 
 export class AdmonitionEditing extends Plugin {
