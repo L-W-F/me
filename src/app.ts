@@ -16,7 +16,6 @@ import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import Link from '@ckeditor/ckeditor5-link/src/link';
 import LinkImage from '@ckeditor/ckeditor5-link/src/linkimage';
 import List from '@ckeditor/ckeditor5-list/src/list';
-import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
 import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import ParagraphButtonUI from '@ckeditor/ckeditor5-paragraph/src/paragraphbuttonui';
 import RemoveFormat from '@ckeditor/ckeditor5-remove-format/src/removeformat';
@@ -24,6 +23,8 @@ import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting'
 import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
+import { Admonition } from './plugins/admonition/admonition';
 import { GFMDataProcessor } from './processor';
 
 ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
@@ -45,7 +46,6 @@ ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
     Link,
     LinkImage,
     List,
-    MediaEmbed,
     Paragraph,
     ParagraphButtonUI,
     RemoveFormat,
@@ -53,6 +53,8 @@ ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
     Strikethrough,
     Table,
     TableToolbar,
+    Admonition,
+    Base64UploadAdapter,
     function MarkdownProcessor(editor: ClassicEditor) {
       editor.data.processor = new GFMDataProcessor(
         editor.data.viewDocument
@@ -85,8 +87,9 @@ ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
       'italic',
       'strikethrough',
       '|',
-      'horizontalLine',
+      'admonition',
       'blockQuote',
+      'horizontalLine',
       '|',
       'bulletedList',
       'numberedList',
@@ -95,7 +98,6 @@ ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
       '|',
       'insertTable',
       'uploadImage',
-      'mediaEmbed',
       'link',
       '|',
       'code',
@@ -152,10 +154,12 @@ ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
   },
 })
   .then((editor) => {
-    document.querySelector('#output').textContent = editor.getData();
+    const outputContainer = document.querySelector('#output')!;
+
+    outputContainer.textContent = editor.getData();
 
     editor.model.document.on('change:data', (...args) => {
-      document.querySelector('#output').textContent = editor.getData();
+      outputContainer.textContent = editor.getData();
     });
   })
   .catch((error) => {

@@ -2,7 +2,7 @@ import DocumentFragment from '@ckeditor/ckeditor5-engine/src/view/documentfragme
 import ViewElement from '@ckeditor/ckeditor5-engine/src/view/element';
 import ViewText from '@ckeditor/ckeditor5-engine/src/view/text';
 
-export function toFragment(tree, options, document) {
+export function hast2fragment(tree, options, document) {
   function transformClassName({ className, ...properties }) {
     return className
       ? {

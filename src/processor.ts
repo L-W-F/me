@@ -23,7 +23,7 @@ export class GFMDataProcessor {
    *
    * @param {module:engine/view/document~Document} document
    */
-  constructor(document) {
+  constructor(document: Document) {
     this.document = document;
   }
 

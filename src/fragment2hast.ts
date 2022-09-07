@@ -1,19 +1,42 @@
-export function toHast(raw) {
-  if (!raw) {
-    return raw;
+interface Properties {
+  className?: string[];
+  [key: string]: any;
+}
+
+interface Node {
+  type: 'root' | 'element' | 'text';
+  tagName?: string;
+  value?: string;
+  properties?: Properties;
+  children?: Node[];
+}
+
+interface Fragment {
+  name?: string;
+  _textData?: string;
+  _children?: Fragment[];
+  getAttributes?: () => [string, any][];
+  getChildren?: () => Fragment[];
+}
+
+export function fragment2hast(fragment: Fragment): Node {
+  if (!fragment) {
+    return fragment;
   }
 
-  function handleNode(node) {
-    if (!node) {
-      return node;
+  function handleNode(frag: Fragment): Node {
+    if (!frag) {
+      return frag;
     }
 
-    const properties = {};
+    const properties: Properties = {};
 
-    if (node.getAttributes) {
-      for (const [key, value] of node.getAttributes()) {
+    if (frag.getAttributes) {
+      for (const [key, value] of frag.getAttributes()) {
         if (key === 'class') {
-          properties.className = Array.isArray(value) ? value : [value];
+          properties.className = Array.isArray(value)
+            ? value
+            : value.split(' ');
         } else {
           properties[key] = value;
         }
@@ -22,16 +45,16 @@ export function toHast(raw) {
 
     const children = [];
 
-    if (node.getChildren) {
-      for (const child of node.getChildren()) {
+    if (frag.getChildren) {
+      for (const child of frag.getChildren()) {
         children.push(handleNode(child));
       }
     }
 
     return {
-      type: node.name ? 'element' : 'text',
-      tagName: node.name,
-      value: node._textData,
+      type: frag.name ? 'element' : 'text',
+      tagName: frag.name,
+      value: frag._textData,
       properties,
       children,
     };
@@ -39,6 +62,6 @@ export function toHast(raw) {
 
   return {
     type: 'root',
-    children: raw._children ? raw._children.map(handleNode) : [],
+    children: fragment._children ? fragment._children.map(handleNode) : [],
   };
 }

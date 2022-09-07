@@ -1,0 +1,51 @@
+.admonition {
+  margin: 1em 0;
+  padding: 10px 10px 0;
+  background: rgba(0, 0, 0, 0.1);
+  border: solid 1px hsl(0, 0%, 77%);
+  border-radius: 2px;
+
+  &:before {
+    display: block;
+  }
+}
+
+.admonition-note {
+  &:before {
+    content: '📓 Note';
+  }
+
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admonition-tip {
+  &:before {
+    content: '💡 Tip';
+  }
+
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.admonition-warning {
+  &:before {
+    content: '⚠️ Warning';
+  }
+
+  background: rgba(255, 255, 0, 0.1);
+}
+
+.admonition-caution {
+  &:before {
+    content: '🪤 Caution';
+  }
+
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.admonition-important {
+  &:before {
+    content: '💣 Important';
+  }
+
+  background: rgba(0, 0, 0, 0.1);
+}
