@@ -25,7 +25,7 @@ import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import Base64UploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/base64uploadadapter';
 import { Admonition } from './plugins/admonition/admonition';
-import { GFMDataProcessor } from './processor';
+import { Markdown } from './plugins/markdown/markdown';
 
 ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
   plugins: [
@@ -55,21 +55,7 @@ ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
     TableToolbar,
     Admonition,
     Base64UploadAdapter,
-    function MarkdownProcessor(editor: ClassicEditor) {
-      editor.data.processor = new GFMDataProcessor(
-        editor.data.viewDocument
-      ) as any;
-    },
-    function DisallowNestingTables(editor) {
-      editor.model.schema.addChildCheck((context, childDefinition) => {
-        if (
-          childDefinition.name == 'table' &&
-          Array.from(context.getNames()).includes('table')
-        ) {
-          return false;
-        }
-      });
-    },
+    Markdown,
   ],
   toolbar: {
     items: [
@@ -87,9 +73,9 @@ ClassicEditor.create(document.querySelector('#editor') as HTMLElement, {
       'italic',
       'strikethrough',
       '|',
-      'admonition',
-      'blockQuote',
       'horizontalLine',
+      'blockQuote',
+      'admonition',
       '|',
       'bulletedList',
       'numberedList',
